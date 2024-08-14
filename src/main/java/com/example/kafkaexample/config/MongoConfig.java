@@ -19,10 +19,10 @@ public class MongoConfig {
     @Value("${spring.data.mongodb.uri}")
     private String mongoUri;
 
-    @Value("spring.data.mongodb.database")
+    @Value("${spring.data.mongodb.database}")
     private String mongoDatabase;
 
-    @Value("spring.data.mongodb.collection")
+    @Value("${spring.data.mongodb.collection}")
     private String mongoCollection;
 
     @Bean

@@ -1,4 +1,4 @@
-package com.example.kafkaexample.config;
+/*package com.example.kafkaexample.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,3 +28,4 @@ public class KafkaProducerConfig {
         return props;
     }
 }
+*/

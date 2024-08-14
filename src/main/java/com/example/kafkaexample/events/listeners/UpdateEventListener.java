@@ -1,6 +1,5 @@
 package com.example.kafkaexample.events.listeners;
 
-import com.example.kafkaexample.config.MongoConfig;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.changestream.FullDocument;
@@ -12,25 +11,20 @@ import com.mongodb.client.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.bson.Document;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Component
 public class UpdateEventListener {
 
-    @Value("${spring.data.mongodb.database}")
-    final public String database;
-
-    @Value("${spring.data.mongodb.collection}")
-    final public String collectionName;
-
-    @Autowired
     final public MongoClient mongoClient;
-
     final public MongoCollection<Document> collection;
 
-    public UpdateEventListener(final MongoClient mongoClient, String database, String collectionName) {
-        this.database = database;
-        this.collectionName = collectionName;
+    @Autowired
+    public UpdateEventListener(MongoClient mongoClient,
+                               @Value("${spring.data.mongodb.database}") String database,
+                               @Value("${spring.data.mongodb.collection}") String collectionName) {
 
         this.mongoClient = mongoClient;
         this.collection = mongoClient.getDatabase(database).getCollection(collectionName);
