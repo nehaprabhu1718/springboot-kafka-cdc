@@ -1,4 +1,4 @@
-package com.example.kafkaexample.config;
+package com.example.kafkaexample.config.mongodb;
 
 import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Value;

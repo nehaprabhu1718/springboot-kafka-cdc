@@ -1,4 +1,4 @@
-package com.example.kafkaexample.kafka.producer;
+package com.example.kafkaexample.config.kafka;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,14 +12,14 @@ import java.util.Map;
 
 public class KafkaProducerConfig {
 
-    @Value("${kafka.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value("${kafka.producer.key-serializer}")
-    private String keySerializer;
+    @Value("${spring.kafka.consumer.key-deserializer}")
+    private String keyDeserializer;
 
-    @Value("${kafka.producer.value-serializer}")
-    private String valueSerializer;
+    @Value("${spring.kafka.consumer.value-deserializer}")
+    private String valueDeserializer;
 
     @Value("${spring.kafka.properties.sasl.mechanism}")
     private String saslMechanism;
@@ -37,8 +37,8 @@ public class KafkaProducerConfig {
     public Map<String, Object> producerConfigs() throws Exception {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, Class.forName(keySerializer));
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, Class.forName(valueSerializer));
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keyDeserializer);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueDeserializer);
         props.put("sasl.mechanism", saslMechanism);
         props.put("sasl.jaas.config", saslJaasConfig);
         props.put("security.protocol", securityProtocol);
