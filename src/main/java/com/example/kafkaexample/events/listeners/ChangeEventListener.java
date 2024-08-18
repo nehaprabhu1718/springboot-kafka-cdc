@@ -24,9 +24,9 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.kafka.support.SendResult;
 
 @Component
-public class UpdateEventListener {
+public class ChangeEventListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(UpdateEventListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChangeEventListener.class);
 
     private final MongoClient mongoClient;
     private final MongoCollection<Document> collection;
@@ -35,7 +35,7 @@ public class UpdateEventListener {
     private final KafkaSendMessage kafkaSendMessage;
 
     @Autowired
-    public UpdateEventListener(MongoClient mongoClient,
+    public ChangeEventListener(MongoClient mongoClient,
                                @Value("${spring.data.mongodb.database}") String database,
                                @Value("${spring.data.mongodb.collection}") String collectionName,
                                ResumeTokenManager resumeTokenManager, KafkaTemplate<String, Object> kafkaTemplate) {
@@ -47,12 +47,12 @@ public class UpdateEventListener {
         this.resumeTokenManager = resumeTokenManager;
     }
 
-    public void listenToChangeEvent() {
+    public void listenToUpdateChangeEvent() {
 
         BsonDocument resumeToken = resumeTokenManager.readResumeTokenFromFile();
 
         List<Bson> pipeline = Arrays.asList(
-                Aggregates.match(Filters.in("operationType", Arrays.asList("insert", "update", "replace")))
+                Aggregates.match(Filters.in("operationType", List.of("update", "insert")))
         );
 
         ChangeStreamIterable<Document> changeStream;
