@@ -1,6 +1,6 @@
 package com.example.kafkaexample.events.listeners;
 
-import com.example.kafkaexample.kafka.producer.KafkaSendMessage;
+import com.example.kafkaexample.kafka.producer.KafkaProducerService;
 import com.example.kafkaexample.token.ResumeTokenManager;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
@@ -32,7 +32,7 @@ public class ChangeEventListener {
     private final MongoCollection<Document> collection;
     private final ResumeTokenManager resumeTokenManager;
     private final KafkaTemplate<String, Object> kafkaTemplate;
-    private final KafkaSendMessage kafkaSendMessage;
+    private final KafkaProducerService kafkaSendMessage;
 
     @Autowired
     public ChangeEventListener(MongoClient mongoClient,
@@ -42,7 +42,7 @@ public class ChangeEventListener {
 
         this.mongoClient = mongoClient;
         this.kafkaTemplate = kafkaTemplate;
-        this.kafkaSendMessage = new KafkaSendMessage(kafkaTemplate);
+        this.kafkaSendMessage = new KafkaProducerService(kafkaTemplate);
         this.collection = mongoClient.getDatabase(database).getCollection(collectionName);
         this.resumeTokenManager = resumeTokenManager;
     }

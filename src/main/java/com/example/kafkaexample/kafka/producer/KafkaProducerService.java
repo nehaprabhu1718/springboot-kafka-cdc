@@ -4,8 +4,6 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -14,13 +12,13 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import java.util.concurrent.CompletableFuture;
 
-public class KafkaSendMessage {
+public class KafkaProducerService {
 
-    public static final Logger logger = LogManager.getLogger(KafkaSendMessage.class);
+    public static final Logger logger = LogManager.getLogger(KafkaProducerService.class);
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    public KafkaSendMessage(KafkaTemplate<String, Object> kafkaTemplate) {
+    public KafkaProducerService(KafkaTemplate<String, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
